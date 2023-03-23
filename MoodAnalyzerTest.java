@@ -4,17 +4,19 @@ import org.junit.Test;
 
 public class MoodAnalyzerTest {
     @Test
-    public void givenMessage_WhenSad_ShouldReturnSad()  {
+    public void givenMessage_WhenSad_ShouldReturnSad() {
         MoodAnalyzer moodAnalyzer = new MoodAnalyzer("This is a Sad message");
         String mood = moodAnalyzer.analyzeMood();
         Assert.assertThat(mood, CoreMatchers.is("SAD"));
     }
+
     @Test
-    public void givenMessage_WhenHappy_ShouldReturnHappy(){
+    public void givenMessage_WhenHappy_ShouldReturnHappy() {
         MoodAnalyzer moodAnalyzer = new MoodAnalyzer("This is a Happy message");
         String mood = moodAnalyzer.analyzeMood();
         Assert.assertThat(mood, CoreMatchers.is("HAPPY"));
     }
+
     @Test
     public void givenMessage_WhenNull_ShouldThrowMoodAnalysisNullException() throws Exception {
         MoodAnalyzer moodAnalyzer = new MoodAnalyzer(null);
@@ -22,6 +24,16 @@ public class MoodAnalyzerTest {
             moodAnalyzer.analyzeMood();
         } catch (MoodAnalyzerException e) {
             Assert.assertEquals(MoodAnalyzerException.ExceptionType.ENTERED_NULL, e.type);
+        }
+    }
+
+    @Test
+    public void givenMessage_WhenEmpty_ShouldThrowMoodAnalysisEmptyException() {
+        MoodAnalyzer moodAnalyzer = new MoodAnalyzer("");
+        try {
+            moodAnalyzer.analyzeMood();
+        } catch (MoodAnalyzerException e) {
+            Assert.assertEquals(MoodAnalyzerException.ExceptionType.ENTERED_EMPTY, e.type);
         }
     }
 }
